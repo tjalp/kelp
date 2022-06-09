@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "kelp",
+  "version": "${version}",
+  "name": "Kelp",
+  "description": "A simple Minecraft mod which contains some QoL stuff",
+  "authors": [
+    "tjalp"
+  ],
+  "contact": {
+    "homepage": "https://tjalp.net/",
+    "issues": "https://github.com/tjalp/kelp/issues",
+    "sources": "https://github.com/tjalp/kelp"
+  },
+  "license": "The Unlicense",
+  "icon": "assets/kelp/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "net.tjalp.kelp.Kelp"
+      }
+    ]
+  },
+  "mixins": [
+    "kelp.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "fabric-language-kotlin": ">=1.7.4+kotlin.1.6.21",
+    "minecraft": ">=1.19",
+    "java": ">=17"
+  }
+}
