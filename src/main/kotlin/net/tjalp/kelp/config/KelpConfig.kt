@@ -1,0 +1,50 @@
+package net.tjalp.kelp.config
+
+import net.minecraft.client.option.SimpleOption
+import net.tjalp.kelp.Kelp
+import java.nio.file.Path
+import kotlin.io.path.createDirectories
+import kotlin.io.path.exists
+import kotlin.io.path.inputStream
+import kotlin.io.path.writeText
+
+/**
+ * The main config
+ */
+class KelpConfig {
+
+    var fastLoadingScreen: Boolean = true
+
+    /**
+     * Get all available options
+     */
+    fun asOptions(): Array<SimpleOption<*>?> {
+        val options = ArrayList<SimpleOption<*>>()
+//            for (field in KelpConfig::class.java.declaredFields) {
+//                // TODO: Add options
+//            }
+        options.add(SimpleOption.ofBoolean("option.kelp.fast_loading_screen", this.fastLoadingScreen) { this.fastLoadingScreen = it })
+        return options.toTypedArray()
+    }
+
+    companion object {
+
+        /**
+         * Read the config from the config file
+         */
+        fun read(path: Path): KelpConfig {
+            if (!path.exists()) return KelpConfig()
+            val json = path.inputStream().bufferedReader().use { it.readText() }
+            return Kelp.GSON.fromJson(json, KelpConfig::class.java)
+        }
+
+        /**
+         * Save the current config to the config file
+         */
+        fun save(path: Path, config: KelpConfig) {
+            val json = Kelp.GSON_PRETTY.toJson(config)
+            path.parent.createDirectories()
+            path.writeText(json)
+        }
+    }
+}

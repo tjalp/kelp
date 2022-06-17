@@ -21,6 +21,9 @@
         "adapter": "kotlin",
         "value": "net.tjalp.kelp.Kelp"
       }
+    ],
+    "modmenu": [
+      "net.tjalp.kelp.integration.ModMenuIntegration"
     ]
   },
   "mixins": [

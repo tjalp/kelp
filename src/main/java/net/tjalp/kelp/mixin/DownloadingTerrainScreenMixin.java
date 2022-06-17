@@ -1,13 +1,14 @@
 package net.tjalp.kelp.mixin;
 
 import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
+import net.tjalp.kelp.Kelp;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(DownloadingTerrainScreen.class)
-public class DownloadingTerrainScreenMixin {
+abstract class DownloadingTerrainScreenMixin {
 
     @Redirect(
             method = "tick",
@@ -18,6 +19,7 @@ public class DownloadingTerrainScreenMixin {
             )
     )
     private long redirectLoadStartTime(DownloadingTerrainScreen instance) {
-        return 0;
+        if (Kelp.INSTANCE.getConfig().getFastLoadingScreen()) return 0;
+        return ((DownloadingTerrainScreenAccessor) instance).getLoadStartTime();
     }
 }

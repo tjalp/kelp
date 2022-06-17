@@ -5,8 +5,11 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "mixins": [],
+  "mixins": [
+
+  ],
   "client": [
+    "DownloadingTerrainScreenAccessor",
     "DownloadingTerrainScreenMixin"
   ]
 }
