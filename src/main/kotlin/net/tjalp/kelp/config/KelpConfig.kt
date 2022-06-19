@@ -2,6 +2,7 @@ package net.tjalp.kelp.config
 
 import net.minecraft.client.option.SimpleOption
 import net.tjalp.kelp.Kelp
+import net.tjalp.kelp.config.details.CombatDetails
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 import kotlin.io.path.exists
@@ -13,7 +14,22 @@ import kotlin.io.path.writeText
  */
 class KelpConfig {
 
+    /**
+     * Whether to enable the fast loading screen or not
+     * This option removes the built-in 2 seconds delay
+     * before closing the 'Loading Terrain...' screen
+     */
     var fastLoadingScreen: Boolean = true
+
+    /**
+     * Whether the end is enabled or not
+     */
+    var endEnabled: Boolean = true
+
+    /**
+     * All the combat settings
+     */
+    var combat: CombatDetails = CombatDetails()
 
     /**
      * Get all available options

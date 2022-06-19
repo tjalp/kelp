@@ -6,7 +6,8 @@
     "defaultRequire": 1
   },
   "mixins": [
-
+    "EndPortalBlockMixin",
+    "PlayerEntityMixin"
   ],
   "client": [
     "DownloadingTerrainScreenAccessor",
