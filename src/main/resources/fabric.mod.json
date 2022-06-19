@@ -22,6 +22,12 @@
         "value": "net.tjalp.kelp.Kelp"
       }
     ],
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "net.tjalp.kelp.KelpClient"
+      }
+    ],
     "modmenu": [
       "net.tjalp.kelp.integration.ModMenuIntegration"
     ]

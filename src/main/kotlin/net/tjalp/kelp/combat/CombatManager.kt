@@ -1,5 +1,11 @@
 package net.tjalp.kelp.combat
 
+import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
+import net.minecraft.entity.LivingEntity
+import net.minecraft.entity.effect.StatusEffectInstance
+import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.server.network.ServerPlayerEntity
 import net.tjalp.kelp.Kelp
 import net.tjalp.kelp.config.details.CombatDetails
@@ -12,6 +18,27 @@ class CombatManager {
 
     private val details: CombatDetails
         get() = Kelp.config.combat
+
+    init {
+        EntityElytraEvents.ALLOW.register {
+            if (!it.world.isClient) it is ServerPlayerEntity && !isInCombat(it)
+            true
+        }
+        ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register { _, entity, killed ->
+            if (entity !is LivingEntity || killed !is ServerPlayerEntity) return@register
+
+            entity.addStatusEffect(StatusEffectInstance(StatusEffects.MINING_FATIGUE, 600, 0))
+            entity.addStatusEffect(StatusEffectInstance(StatusEffects.GLOWING, 2400, 0))
+            setInCombat(killed, false)
+        }
+        ServerPlayConnectionEvents.DISCONNECT.register { handler, _ ->
+            val player = handler.player
+
+            if (!isInCombat(player)) return@register
+
+            handler.player.kill()
+        }
+    }
 
     /**
      * Every player's combat timer
