@@ -7,15 +7,14 @@ import com.mojang.brigadier.arguments.LongArgumentType.longArg
 import com.mojang.brigadier.builder.LiteralArgumentBuilder.literal
 import com.mojang.brigadier.builder.RequiredArgumentBuilder.argument
 import net.minecraft.command.EntitySelector
-import net.minecraft.command.argument.EntityArgumentType.*
+import net.minecraft.command.argument.EntityArgumentType.getPlayers
+import net.minecraft.command.argument.EntityArgumentType.players
 import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
 import net.tjalp.kelp.Kelp
-import net.tjalp.kelp.util.format
 import net.tjalp.kelp.util.formatFull
 import java.time.Duration
-import java.util.concurrent.TimeUnit
 
 object KelpCommand {
 
@@ -24,13 +23,13 @@ object KelpCommand {
     fun register(dispatcher: CommandDispatcher<ServerCommandSource>) {
         val node = literal<ServerCommandSource>("kelp")
             .then(literal<ServerCommandSource>("combat")
-                .then(literal<ServerCommandSource?>("set")
+                .then(literal<ServerCommandSource>("set")
                     .then(argument<ServerCommandSource, EntitySelector>("targets", players())
                         .executes { executeCombatSet(it.source, getPlayers(it, "targets")) }
                         .then(argument<ServerCommandSource, Long>("seconds", longArg())
                             .executes { executeCombatSet(it.source, getPlayers(it, "targets"), getLong(it, "seconds")) })))
-                .then(literal<ServerCommandSource?>("remove")
-                    .then(argument<ServerCommandSource, EntitySelector>("target", player())
+                .then(literal<ServerCommandSource>("remove")
+                    .then(argument<ServerCommandSource, EntitySelector>("target", players())
                         .executes { executeCombatRemove(it.source, getPlayers(it, "target")) })))
 
         dispatcher.register(node)
