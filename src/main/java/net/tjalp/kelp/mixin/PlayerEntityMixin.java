@@ -21,9 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.time.Duration;
 import java.util.HashSet;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
-import static net.tjalp.kelp.util.DurationKt.format;
+import static net.tjalp.kelp.util.DurationKt.formatFull;
 
 @Mixin(PlayerEntity.class)
 abstract class PlayerEntityMixin {
@@ -71,7 +70,7 @@ abstract class PlayerEntityMixin {
         Duration duration = this.combat.getCombatTimeLeft(thisServerPlayer).plus(Duration.ofSeconds(1));
 
         OverlayMessageS2CPacket packet = new OverlayMessageS2CPacket(
-                Text.literal(format(duration, TimeUnit.MINUTES, TimeUnit.SECONDS)).setStyle(Style.EMPTY.withColor(TextColor.parse("#F8C8DC")))
+                Text.literal(formatFull(duration)).setStyle(Style.EMPTY.withColor(TextColor.parse("#F8C8DC")))
         );
         thisServerPlayer.networkHandler.sendPacket(packet);
 
