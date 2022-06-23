@@ -13,6 +13,7 @@ import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
 import net.tjalp.kelp.Kelp
+import net.tjalp.kelp.gamerule.KelpGameRules
 import net.tjalp.kelp.util.formatFull
 import java.time.Duration
 
@@ -35,7 +36,7 @@ object KelpCommand {
         dispatcher.register(node)
     }
 
-    private fun executeCombatSet(source: ServerCommandSource, targets: Collection<ServerPlayerEntity>, seconds: Long = Kelp.config.combat.seconds): Int {
+    private fun executeCombatSet(source: ServerCommandSource, targets: Collection<ServerPlayerEntity>, seconds: Long = source.world.gameRules.getInt(KelpGameRules.COMBAT_TAG_TIME).toLong()): Int {
         val duration = Duration.ofSeconds(seconds)
         val displayDuration = duration.formatFull()
 

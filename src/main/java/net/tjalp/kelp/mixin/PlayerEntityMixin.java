@@ -10,8 +10,10 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
+import net.minecraft.world.GameRules;
 import net.tjalp.kelp.Kelp;
 import net.tjalp.kelp.combat.CombatManager;
+import net.tjalp.kelp.gamerule.KelpGameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,19 +35,19 @@ abstract class PlayerEntityMixin {
 
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/damage/DamageSource;isScaledWithDifficulty()Z"))
     private void onDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (!kelp.getConfig().getCombat().getEnabled()) return;
-
         PlayerEntity thisPlayer = (PlayerEntity) (Object) this;
+        GameRules gameRules = thisPlayer.world.getGameRules();
 
-        if (!(thisPlayer instanceof ServerPlayerEntity)) return;
+        if (!gameRules.getBoolean(KelpGameRules.INSTANCE.getENABLE_COMBAT_TAG())
+                || !(thisPlayer instanceof ServerPlayerEntity)
+                || !(source instanceof EntityDamageSource)
+        ) return;
 
-        if (source instanceof EntityDamageSource) {
-            Entity attacker = source.getAttacker();
+        Entity attacker = source.getAttacker();
 
-            if (attacker instanceof ServerPlayerEntity
+        if (attacker instanceof ServerPlayerEntity
                 || (attacker instanceof ProjectileEntity && ((ProjectileEntity) attacker).getOwner() instanceof ServerPlayerEntity)) {
-                this.combat.setInCombat((ServerPlayerEntity) thisPlayer, Duration.ofSeconds(kelp.getConfig().getCombat().getSeconds()), false);
-            }
+            this.combat.setInCombat((ServerPlayerEntity) thisPlayer, Duration.ofSeconds(gameRules.getInt(KelpGameRules.INSTANCE.getCOMBAT_TAG_TIME())), false);
         }
     }
 

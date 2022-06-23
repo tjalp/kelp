@@ -8,6 +8,7 @@ import net.fabricmc.loader.impl.FabricLoaderImpl
 import net.tjalp.kelp.combat.CombatManager
 import net.tjalp.kelp.command.KelpCommand
 import net.tjalp.kelp.config.KelpConfig
+import net.tjalp.kelp.gamerule.KelpGameRules
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.nio.file.Path
@@ -32,5 +33,8 @@ object Kelp : ModInitializer {
         CommandRegistrationCallback.EVENT.register { dispatcher, _, _ ->
             KelpCommand.register(dispatcher)
         }
+
+        // Initialize gamerules by loading the class
+        KelpGameRules.toString()
     }
 }

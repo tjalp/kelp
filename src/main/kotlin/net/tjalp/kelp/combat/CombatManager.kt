@@ -7,17 +7,13 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.server.network.ServerPlayerEntity
-import net.tjalp.kelp.Kelp
-import net.tjalp.kelp.config.details.CombatDetails
+import net.tjalp.kelp.gamerule.KelpGameRules
 import java.time.Duration
 
 /**
  * The combat manager, it keeps track of which players are in combat
  */
 class CombatManager {
-
-    private val details: CombatDetails
-        get() = Kelp.config.combat
 
     init {
         EntityElytraEvents.ALLOW.register {
@@ -52,7 +48,7 @@ class CombatManager {
      * @param duration The duration to set the player in combat for
      * @param override Whether to override the timer if it is longer than the specified duration
      */
-    fun setInCombat(player: ServerPlayerEntity, duration: Duration = Duration.ofSeconds(details.seconds), override: Boolean = false) {
+    fun setInCombat(player: ServerPlayerEntity, duration: Duration = Duration.ofSeconds(player.world.gameRules.getInt(KelpGameRules.COMBAT_TAG_TIME).toLong()), override: Boolean = false) {
         val calculatedTime = System.currentTimeMillis() + duration.toMillis()
 
         // If the time is less than the current time, and it won't be overridden, don't continue

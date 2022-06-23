@@ -2,7 +2,6 @@ package net.tjalp.kelp.config
 
 import net.minecraft.client.option.SimpleOption
 import net.tjalp.kelp.Kelp
-import net.tjalp.kelp.config.details.CombatDetails
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 import kotlin.io.path.exists
@@ -20,16 +19,6 @@ class KelpConfig {
      * before closing the 'Loading Terrain...' screen
      */
     var fastLoadingScreen: Boolean = true
-
-    /**
-     * Whether the end is enabled or not
-     */
-    var endEnabled: Boolean = true
-
-    /**
-     * All the combat settings
-     */
-    var combat: CombatDetails = CombatDetails()
 
     /**
      * Get all available options

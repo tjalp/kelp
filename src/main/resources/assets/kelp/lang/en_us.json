@@ -1,5 +1,8 @@
 {
   "title.kelp": "Kelp",
   "title.kelp.config": "Kelp Config",
-  "option.kelp.fast_loading_screen": "Fast Loading Screen"
+  "option.kelp.fast_loading_screen": "Fast Loading Screen",
+  "gamerule.enableEnd": "Enable The End",
+  "gamerule.enableCombatTag": "Enable Combat Tag",
+  "gamerule.combatTagTime": "Combat Tag Time"
 }
