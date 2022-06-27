@@ -49,7 +49,8 @@ object Kelp : ModInitializer {
         EntitySleepEvents.ALLOW_SLEEP_TIME.register { entity, _, _ ->
             val world = entity.world
             if (!world.gameRules.getBoolean(KelpGameRules.ALLOW_SLEEPING_WHILE_THUNDERING)
-                && entity.world.isThundering) return@register ActionResult.FAIL
+                && entity.world.isThundering
+                && world.isDay) return@register ActionResult.FAIL
             ActionResult.PASS
         }
 
