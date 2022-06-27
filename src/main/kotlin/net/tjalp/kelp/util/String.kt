@@ -8,8 +8,8 @@ package net.tjalp.kelp.util
  * @param plural Optional plural version of the string
  * @return Optionally pluralized string
  */
-fun String.pluralize(count: Int, plural: String? = null): String {
-    return if(count > 1 || count == 0) {
+fun String.pluralize(count: Long, plural: String? = null): String {
+    return if(count > 1L || count == 0L) {
         plural ?:
         if(this.endsWith("s")
             || this.endsWith("sh")
@@ -24,3 +24,5 @@ fun String.pluralize(count: Int, plural: String? = null): String {
         this
     }
 }
+
+fun String.pluralize(count: Int, plural: String? = null): String = pluralize(count.toLong(), plural)

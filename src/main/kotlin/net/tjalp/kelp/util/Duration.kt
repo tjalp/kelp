@@ -57,19 +57,19 @@ fun Duration.format(vararg units: TimeUnit): String {
     val joiner = ListJoiner()
 
     if (TimeUnit.DAYS in units && days > 0) {
-        joiner.add(days.toString() + " day".pluralize(days.toInt()))
+        joiner.add(days.toString() + " day".pluralize(days))
     }
 
     if (TimeUnit.HOURS in units && hours > 0) {
-        joiner.add(hours.toString() + " hour".pluralize(hours.toInt()))
+        joiner.add(hours.toString() + " hour".pluralize(hours))
     }
 
     if (TimeUnit.MINUTES in units && minutes > 0) {
-        joiner.add(minutes.toString() + " minute".pluralize(minutes.toInt()))
+        joiner.add(minutes.toString() + " minute".pluralize(minutes))
     }
 
     if (TimeUnit.SECONDS in units && seconds > 0) {
-        joiner.add(seconds.toString() + " second".pluralize(seconds.toInt()))
+        joiner.add(seconds.toString() + " second".pluralize(seconds))
     }
 
     // Add 0 seconds if empty
