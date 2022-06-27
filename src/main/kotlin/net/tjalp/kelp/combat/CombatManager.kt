@@ -17,7 +17,7 @@ class CombatManager {
 
     init {
         EntityElytraEvents.ALLOW.register {
-            if (!it.world.isClient) it is ServerPlayerEntity && !isInCombat(it)
+            if (!it.world.isClient) return@register it is ServerPlayerEntity && !isInCombat(it)
             true
         }
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register { _, entity, killed ->

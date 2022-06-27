@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
+import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents
 import net.fabricmc.loader.impl.FabricLoaderImpl
 import net.minecraft.util.ActionResult
@@ -50,6 +51,10 @@ object Kelp : ModInitializer {
             if (!world.gameRules.getBoolean(KelpGameRules.ALLOW_SLEEPING_WHILE_THUNDERING)
                 && entity.world.isThundering) return@register ActionResult.FAIL
             ActionResult.PASS
+        }
+
+        EntityElytraEvents.ALLOW.register {
+            it.world.gameRules.getBoolean(KelpGameRules.ALLOW_ELYTRAS)
         }
     }
 }
