@@ -8,8 +8,9 @@ import net.minecraft.world.GameRules.Category
 
 object KelpGameRules {
 
-    val ALLOW_SLEEPING_WHILE_THUNDERING: GameRules.Key<GameRules.BooleanRule> = register("allowSleepingWhileThundering", Category.UPDATES, createBooleanRule(true))
     val ALLOW_ELYTRAS: GameRules.Key<GameRules.BooleanRule> = register("allowElytras", Category.PLAYER, createBooleanRule(true))
+    val ALLOW_FIREWORK_ROCKET_BOOSTING: GameRules.Key<GameRules.BooleanRule> = register("allowFireworkRocketBoosting", Category.PLAYER, createBooleanRule(true))
+    val ALLOW_SLEEPING_WHILE_THUNDERING: GameRules.Key<GameRules.BooleanRule> = register("allowSleepingWhileThundering", Category.UPDATES, createBooleanRule(true))
     val COMBAT_TAG_TIME: GameRules.Key<GameRules.IntRule> = register("combatTagTime", Category.MISC, createIntRule(30))
     val ENABLE_COMBAT_TAG: GameRules.Key<GameRules.BooleanRule> = register("enableCombatTag", Category.PLAYER, createBooleanRule(false))
     val ENABLE_END: GameRules.Key<GameRules.BooleanRule> = register("enableEnd", Category.MISC, createBooleanRule(true))
